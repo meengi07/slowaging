@@ -1,0 +1,691 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Initialize Backend and Database",
+        "description": "Set up the Spring Boot backend project and configure PostgreSQL database with initial schema.",
+        "details": "Create a new Kotlin Spring Boot project. Configure PostgreSQL connection in application properties. Define the FoodLog entity with fields: id, userId, foodName, agingScore, message, imageUrl (optional), createdAt. Set up JPA repository for FoodLog. Apply initial DB migrations.",
+        "testStrategy": "Verify DB connection and schema creation by running integration tests that persist and retrieve FoodLog entities.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Kotlin Spring Boot Project Structure",
+            "description": "Initialize a new Kotlin-based Spring Boot project using Spring Initializr or IntelliJ IDEA, ensuring the correct dependencies and project metadata are set.",
+            "dependencies": [],
+            "details": "Use Spring Initializr (web or IntelliJ IDEA integration) to generate a new project with Kotlin as the language and Gradle or Maven as the build tool. Include dependencies: Spring Web, Spring Data JPA, and PostgreSQL Driver. Set group, artifact, and package names according to project conventions. Verify the project builds and runs a basic application entry point.",
+            "status": "pending",
+            "testStrategy": "Build and run the generated project to confirm successful initialization and dependency resolution."
+          },
+          {
+            "id": 2,
+            "title": "Configure PostgreSQL Connection and Application Properties",
+            "description": "Set up PostgreSQL as the database by configuring connection details in application properties and ensuring the backend can connect to the database.",
+            "dependencies": [],
+            "details": "Edit application.properties or application.yml to include PostgreSQL connection settings (URL, username, password, driver class). Add JPA and Hibernate configuration for schema management. Ensure the PostgreSQL server is running and accessible. Test the connection by running the application and checking for successful startup without DB errors.",
+            "status": "pending",
+            "testStrategy": "Start the application and verify that it connects to PostgreSQL without errors. Optionally, use a test endpoint or repository to confirm DB connectivity."
+          },
+          {
+            "id": 3,
+            "title": "Define FoodLog Entity and JPA Repository",
+            "description": "Implement the FoodLog entity as a Kotlin data class and create a corresponding JPA repository interface for CRUD operations.",
+            "dependencies": [],
+            "details": "Create a Kotlin data class annotated with @Entity for FoodLog, including fields: id (primary key), userId, foodName, agingScore, message, imageUrl (nullable), and createdAt. Use appropriate data types and JPA annotations. Implement a Spring Data JPA repository interface extending JpaRepository<FoodLog, Long> for basic CRUD support.",
+            "status": "pending",
+            "testStrategy": "Write a simple integration test or use the application runner to persist and retrieve a FoodLog entity, verifying correct mapping and repository functionality."
+          },
+          {
+            "id": 4,
+            "title": "Apply Initial Database Migrations and Verify Schema",
+            "description": "Set up and execute initial database migrations to create the FoodLog table schema in PostgreSQL, ensuring alignment with the entity definition.",
+            "dependencies": [],
+            "details": "Integrate a migration tool such as Flyway or Liquibase. Create an initial migration script to define the FoodLog table with all required columns and constraints. Apply the migration on application startup or manually. Verify that the schema matches the entity and that the table is created in the database.",
+            "status": "pending",
+            "testStrategy": "Inspect the PostgreSQL database to confirm the FoodLog table exists with correct columns. Run integration tests to ensure entities can be persisted and retrieved using the schema."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Setup React Native Project",
+        "description": "Initialize the React Native (TypeScript) project for iOS and Android platforms.",
+        "details": "Create a new React Native project using TypeScript template. Configure for both iOS and Android. Install essential libraries (navigation, image picker, axios, charting). Set up basic folder structure for screens, components, and services.",
+        "testStrategy": "Run the app on both iOS and Android simulators to confirm successful initialization and navigation between placeholder screens.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize React Native Project with TypeScript Template",
+            "description": "Create a new React Native project using the official TypeScript template, ensuring compatibility with both iOS and Android platforms.",
+            "dependencies": [],
+            "details": "Use the React Native CLI to initialize the project: `npx react-native init ProjectName --template react-native-template-typescript`. Confirm that the project builds and runs on both iOS and Android simulators. Ensure the TypeScript configuration (`tsconfig.json`) is present and correctly set up for React Native development.",
+            "status": "pending",
+            "testStrategy": "Run the default app on both iOS and Android simulators to verify successful initialization and TypeScript compilation."
+          },
+          {
+            "id": 2,
+            "title": "Configure Essential Libraries and Tooling",
+            "description": "Install and configure essential libraries for navigation, image picking, HTTP requests, and charting, as well as development tooling for linting and testing.",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Install libraries: `@react-navigation/native`, `@react-navigation/stack`, `react-native-image-picker`, `axios`, and a charting library such as `react-native-chart-kit`. Set up linting with ESLint and TypeScript plugins, and configure Jest for TypeScript testing. Ensure all libraries are linked and configured according to their documentation for both platforms.",
+            "status": "pending",
+            "testStrategy": "Import and use each library in a minimal way (e.g., render a navigation stack, pick an image, make a test HTTP request, render a sample chart) to confirm correct installation and configuration."
+          },
+          {
+            "id": 3,
+            "title": "Establish Project Folder Structure",
+            "description": "Set up a clear and scalable folder structure for screens, components, and services to support maintainable development.",
+            "dependencies": [
+              "2.2"
+            ],
+            "details": "Create top-level directories: `/src/screens`, `/src/components`, `/src/services`. Move the main App file into `/src` and update imports accordingly. Add placeholder files for at least one screen, one reusable component, and one service (e.g., API client). Document the structure in a README or code comments.",
+            "status": "pending",
+            "testStrategy": "Verify that the app compiles and runs after restructuring. Check that placeholder imports resolve correctly and that the folder structure matches documentation."
+          },
+          {
+            "id": 4,
+            "title": "Implement Basic Navigation and Placeholder Screens",
+            "description": "Set up basic navigation between at least two placeholder screens to validate the navigation stack and folder structure.",
+            "dependencies": [
+              "2.3"
+            ],
+            "details": "Implement a simple navigation stack using `@react-navigation/stack` with two screens (e.g., Home and Details) located in `/src/screens`. Use TypeScript for all screen and navigation types. Ensure navigation works on both iOS and Android simulators.",
+            "status": "pending",
+            "testStrategy": "Manually navigate between screens on both platforms to confirm correct routing and screen rendering. Run a basic Jest test to check that the navigation container renders without errors."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Implement Food Image Upload (Frontend)",
+        "description": "Enable users to upload or capture food images via camera or gallery in the app.",
+        "details": "Integrate image picker and camera modules. Implement UI for image selection (camera/gallery). Prepare image as multipart/form-data for API upload. Handle image compression and resizing for optimal upload speed.",
+        "testStrategy": "Test image selection, compression, and preview on both platforms. Validate that images are correctly prepared for upload.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Integrate Image Picker and Camera Modules",
+            "description": "Set up and configure modules to allow users to select images from their device gallery or capture new photos using the device camera.",
+            "dependencies": [],
+            "details": "Install and configure a cross-platform image picker library (e.g., react-native-image-picker or expo-image-picker). Ensure permissions for camera and gallery access are handled for both iOS and Android. Provide functions to launch the camera or open the gallery, returning the selected or captured image data.",
+            "status": "pending",
+            "testStrategy": "Test image selection and capture on both iOS and Android simulators/devices. Verify permission prompts and returned image data."
+          },
+          {
+            "id": 2,
+            "title": "Implement Image Selection UI",
+            "description": "Design and build the user interface for selecting between camera and gallery, previewing the selected image, and confirming the choice.",
+            "dependencies": [
+              "3.1"
+            ],
+            "details": "Create a modal or screen with clear options for 'Take Photo' and 'Choose from Gallery'. Display a preview of the selected image with options to retake or reselect. Ensure accessibility and responsive layout. Connect UI actions to the image picker/camera functions.",
+            "status": "pending",
+            "testStrategy": "Manually test UI flow for selecting, previewing, and confirming images. Validate accessibility and usability."
+          },
+          {
+            "id": 3,
+            "title": "Handle Image Compression and Resizing",
+            "description": "Process the selected image to compress and resize it for optimal upload speed and quality before preparing for upload.",
+            "dependencies": [
+              "3.2"
+            ],
+            "details": "Integrate an image processing library (e.g., react-native-image-resizer or expo-image-manipulator). Set target dimensions and compression quality to balance speed and clarity. Ensure processed images remain under the desired file size threshold (e.g., <2MB).",
+            "status": "pending",
+            "testStrategy": "Test with various image sizes and formats. Measure output file size and visual quality. Confirm processing time is acceptable."
+          },
+          {
+            "id": 4,
+            "title": "Prepare and Upload Image as Multipart/Form-Data",
+            "description": "Format the processed image as multipart/form-data and implement the API call to upload the image to the backend endpoint.",
+            "dependencies": [
+              "3.3"
+            ],
+            "details": "Use FormData to append the image file and any required metadata. Implement the API request using fetch or axios, targeting the backend upload endpoint. Handle upload progress, success, and error states. Provide user feedback for each state.",
+            "status": "pending",
+            "testStrategy": "Mock and real API tests for successful and failed uploads. Validate correct request formatting and backend receipt. Check user feedback for all upload states."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Implement Food Image Analysis API Endpoint",
+        "description": "Create the backend API endpoint to receive food images and analyze them using Google Cloud Vision.",
+        "details": "Implement POST /api/v1/food/analyze endpoint accepting multipart/form-data. Integrate Google Cloud Vision API for food detection. Parse Vision API response and extract top N food labels. Handle errors and fallback to manual input if recognition fails.",
+        "testStrategy": "Send test images via API and verify correct label extraction and error handling for invalid images.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement POST /api/v1/food/analyze Endpoint",
+            "description": "Create the backend API endpoint to accept food images via multipart/form-data and validate incoming requests.",
+            "dependencies": [],
+            "details": "Define the endpoint route in your backend framework (e.g., Express, FastAPI). Configure middleware to handle multipart/form-data uploads. Validate that the uploaded file is an image and meets size/type requirements. Return appropriate error responses for invalid requests.",
+            "status": "pending",
+            "testStrategy": "Send various image and non-image files to the endpoint and verify correct validation and error handling."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Google Cloud Vision API for Food Detection",
+            "description": "Connect the endpoint to Google Cloud Vision API, sending the uploaded image for label detection and handling API responses.",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Obtain and securely store Google Cloud Vision API credentials. Convert the uploaded image to base64 or a suitable format. Make a POST request to the Vision API with LABEL_DETECTION and set maxResults to the desired N. Handle API errors and timeouts gracefully.",
+            "status": "pending",
+            "testStrategy": "Mock Vision API responses and verify correct request formatting and error handling. Test with real images to ensure successful integration."
+          },
+          {
+            "id": 3,
+            "title": "Parse Vision API Response and Extract Top N Food Labels",
+            "description": "Process the Vision API response to extract and return the top N food-related labels to the client.",
+            "dependencies": [
+              "4.2"
+            ],
+            "details": "Parse the JSON response from the Vision API. Filter and sort labels by confidence score, selecting the top N relevant food labels. Structure the API response to include these labels in a clear, consistent format.",
+            "status": "pending",
+            "testStrategy": "Use sample Vision API responses to verify correct parsing, filtering, and formatting of the output."
+          },
+          {
+            "id": 4,
+            "title": "Implement Error Handling and Manual Input Fallback",
+            "description": "Handle cases where image recognition fails or returns insufficient results, providing a fallback for manual food label input.",
+            "dependencies": [
+              "4.3"
+            ],
+            "details": "Detect failure scenarios such as Vision API errors, empty or low-confidence label results. Return a clear error message and a flag indicating the need for manual input. Ensure the frontend can recognize this response and prompt the user accordingly.",
+            "status": "pending",
+            "testStrategy": "Simulate Vision API failures and low-confidence results to verify fallback logic and error messaging."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Develop Aging Score Rule Engine",
+        "description": "Implement the rule engine that maps recognized food labels to aging scores and witty messages based on predefined rules.",
+        "details": "Define a mapping table for food categories and their aging score adjustments (±hours). Implement logic to match Vision API labels to rules. If no match, allow fallback to user input. Generate a witty message per result. Ensure extensibility for future rule updates.",
+        "testStrategy": "Unit test rule engine with various food labels, including edge cases and fallback scenarios.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement Rule Mapping Table",
+            "description": "Define and implement a mapping table that associates food categories with aging score adjustments (±hours) and witty messages, ensuring the structure is easily extensible for future rule updates.",
+            "dependencies": [],
+            "details": "Create a data structure (e.g., JSON, database table, or in-memory map) that lists food categories, their corresponding aging score adjustments, and witty messages. Ensure the mapping is easily editable and supports adding new categories or updating existing ones without code changes. Document the format and provide sample entries.",
+            "status": "pending",
+            "testStrategy": "Unit test the mapping table for correct retrieval of scores and messages for a variety of food categories, including edge cases and missing entries."
+          },
+          {
+            "id": 2,
+            "title": "Implement Rule Matching Logic",
+            "description": "Develop backend logic to match recognized food labels from the Vision API to the rule mapping table and determine the appropriate aging score and witty message.",
+            "dependencies": [
+              "5.1"
+            ],
+            "details": "Implement a function or service that receives food labels (as strings or arrays) and searches the mapping table for matches. If multiple labels match, define a clear precedence or aggregation strategy. Return the corresponding aging score adjustment and witty message for each recognized label.",
+            "status": "pending",
+            "testStrategy": "Unit test with various label inputs, including single, multiple, and ambiguous matches. Validate correct mapping and output."
+          },
+          {
+            "id": 3,
+            "title": "Handle Fallback to User Input for Unmatched Labels",
+            "description": "Implement logic to prompt for and process user input when no recognized food label matches any rule, ensuring a seamless fallback experience.",
+            "dependencies": [
+              "5.2"
+            ],
+            "details": "Detect when the rule matching logic returns no results. Trigger a frontend or API prompt for manual food category input. On receiving user input, re-run the rule matching logic. Ensure the fallback is user-friendly and integrates smoothly with the existing flow.",
+            "status": "pending",
+            "testStrategy": "Simulate unmatched label scenarios and verify that the fallback prompt appears, accepts input, and correctly processes the new data."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Rule Engine with API Endpoint and Ensure Extensibility",
+            "description": "Connect the rule engine to the backend API endpoint, ensuring results are returned in the required format and the system is structured for easy future rule updates.",
+            "dependencies": [
+              "5.3"
+            ],
+            "details": "Integrate the rule engine logic into the backend endpoint that receives food analysis results. Ensure the response includes the aging score, witty message, and any relevant metadata. Abstract rule evaluation logic to a dedicated module or service to facilitate future updates. Document the integration points and update process.",
+            "status": "pending",
+            "testStrategy": "End-to-end test the API with various image inputs, verifying correct rule application, fallback handling, and extensibility for future rule changes."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Store and Retrieve FoodLog Records",
+        "description": "Persist analyzed food logs in the database and provide retrieval endpoints for daily, weekly, and monthly reports.",
+        "details": "On successful analysis, save FoodLog with all required fields. Implement endpoints to fetch logs by date range and aggregate aging scores. Ensure userId is fixed to 1 for MVP. Optimize queries for performance.",
+        "testStrategy": "Integration test log creation and retrieval, including aggregation for daily/weekly/monthly summaries.",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement FoodLog Persistence Layer",
+            "description": "Define and implement the database schema and repository logic to persist analyzed FoodLog records with all required fields, ensuring userId is fixed to 1 for MVP.",
+            "dependencies": [],
+            "details": "Extend the existing FoodLog entity if needed to include all required fields (e.g., id, userId, foodName, agingScore, message, imageUrl, createdAt). Implement JPA repository methods for saving and querying FoodLog records. Apply appropriate indexes on userId and createdAt for efficient retrieval. Ensure all persistence logic is covered by unit tests.",
+            "status": "pending",
+            "testStrategy": "Write unit tests for repository methods to verify correct saving and retrieval of FoodLog records, including edge cases for missing or invalid data."
+          },
+          {
+            "id": 2,
+            "title": "Develop Backend Endpoints for FoodLog Retrieval",
+            "description": "Implement REST API endpoints to fetch FoodLog records by date range and aggregate aging scores for daily, weekly, and monthly reports.",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Create endpoints such as GET /api/v1/foodlogs?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD and GET /api/v1/foodlogs/summary?period=daily|weekly|monthly. Implement service logic to filter logs by date range and aggregate aging scores per period. Ensure all queries are optimized for performance using appropriate database functions and indexes.",
+            "status": "pending",
+            "testStrategy": "Write integration tests to verify correct filtering and aggregation of FoodLog records for various date ranges and periods."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Frontend with FoodLog Retrieval APIs",
+            "description": "Update the frontend to consume the new FoodLog retrieval endpoints, displaying daily, weekly, and monthly reports in a user-friendly format.",
+            "dependencies": [
+              "6.2"
+            ],
+            "details": "Implement API calls from the frontend to fetch FoodLog data and summaries. Design UI components to display logs and aggregated aging scores per period. Ensure loading states, error handling, and data formatting are user-friendly and consistent with MVP requirements.",
+            "status": "pending",
+            "testStrategy": "Perform end-to-end tests to verify that the frontend correctly displays FoodLog data and summaries for different periods, including handling of empty states and API errors."
+          },
+          {
+            "id": 4,
+            "title": "Optimize, Monitor, and Validate FoodLog Storage and Retrieval",
+            "description": "Profile and optimize database queries for FoodLog storage and retrieval. Set up basic monitoring and validate data integrity and performance under expected MVP load.",
+            "dependencies": [
+              "6.2"
+            ],
+            "details": "Use query profiling tools to identify and resolve performance bottlenecks in FoodLog-related queries. Add basic application and database monitoring (e.g., query execution time, error rates). Validate data integrity by running consistency checks and simulating concurrent access scenarios.",
+            "status": "pending",
+            "testStrategy": "Conduct load tests to ensure endpoints perform within acceptable response times under expected usage. Review monitoring dashboards for anomalies and verify data consistency after simulated concurrent operations."
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Display Analysis Result Card (Frontend)",
+        "description": "Show the analysis result as a visually appealing card with food image, name, aging score, and witty message.",
+        "details": "Design and implement a result card UI component. Render food image, name, aging score (±hours), and message. Ensure design matches young/trendy style and is visually satisfying. Handle error states gracefully.",
+        "testStrategy": "UI test with various result payloads. Validate layout, responsiveness, and error handling.",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Analysis Result Card UI",
+            "description": "Create a visually appealing card design that displays the food image, name, aging score (±hours), and witty message, matching a young/trendy style.",
+            "dependencies": [],
+            "details": "Use modern UI design principles for card-based layouts. Reference best practices for card anatomy: container, media (food image), text blocks (name, aging score, message), and layering for readability. Ensure the design is visually satisfying and consistent with the app’s overall style. Prepare design assets and layout specifications for implementation.",
+            "status": "pending",
+            "testStrategy": "Review design mockups with stakeholders. Validate visual appeal, clarity, and alignment with brand style."
+          },
+          {
+            "id": 2,
+            "title": "Implement Result Card Component",
+            "description": "Develop the frontend component to render the analysis result card using the finalized design, displaying all required data fields.",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Use a component-based framework (e.g., React, Vue) to build the card. Structure the component to accept props for image URL, food name, aging score, and message. Apply styles to match the young/trendy design. Ensure responsive layout and accessibility. Integrate animation or effects if specified in the design.",
+            "status": "pending",
+            "testStrategy": "Unit test component rendering with various prop values. Validate layout and responsiveness across devices."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Backend Data and Error Handling",
+            "description": "Connect the result card component to backend analysis API responses and implement graceful error handling for missing or invalid data.",
+            "dependencies": [
+              "7.2"
+            ],
+            "details": "Fetch analysis results from the backend API and map response fields to the card component props. Implement loading and error states: show placeholders or fallback messages if data is unavailable or invalid. Ensure the UI remains visually satisfying even in error scenarios.",
+            "status": "pending",
+            "testStrategy": "Test with valid, incomplete, and erroneous API responses. Verify correct rendering and error messaging."
+          },
+          {
+            "id": 4,
+            "title": "End-to-End UI Validation and Quality Assurance",
+            "description": "Perform comprehensive UI testing of the result card in the app, covering layout, responsiveness, data integration, and error handling.",
+            "dependencies": [
+              "7.3"
+            ],
+            "details": "Use automated UI testing tools and manual review to validate the card’s appearance and behavior with various analysis results. Test on multiple devices and screen sizes. Confirm that all elements (image, name, score, message) display correctly and that error states are handled gracefully.",
+            "status": "pending",
+            "testStrategy": "Run UI test suites with diverse payloads. Conduct cross-device and cross-browser checks. Collect user feedback if possible."
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Implement Daily/Weekly/Monthly Report and Timeline (Frontend)",
+        "description": "Provide users with a calendar/timeline view and simple graphs showing their aging score trends.",
+        "details": "Fetch logs from backend and aggregate by day, week, month. Display total aging score per period. Implement calendar/timeline UI and simple trend graphs using a charting library. Ensure intuitive navigation and clear data visualization.",
+        "testStrategy": "Test with mock and real data for various periods. Validate correctness of aggregation and graph rendering.",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement Calendar/Timeline UI",
+            "description": "Create an interactive calendar or timeline component that allows users to view and navigate their aging score logs by day, week, and month.",
+            "dependencies": [],
+            "details": "Select a suitable calendar/timeline UI library compatible with the frontend stack (e.g., React calendar or timeline component). Implement the UI to support switching between daily, weekly, and monthly views. Ensure the component is responsive and intuitive, with clear navigation controls (e.g., next/prev period, jump to today). Use visual cues (such as dots or highlights) to indicate days with data. Follow best practices for accessibility and mobile usability.",
+            "status": "pending",
+            "testStrategy": "Test navigation across different periods and devices. Validate that the UI responds correctly to user interactions and displays the correct date range."
+          },
+          {
+            "id": 2,
+            "title": "Fetch and Aggregate Aging Score Logs",
+            "description": "Implement logic to fetch user logs from the backend and aggregate aging scores by day, week, and month as required by the UI.",
+            "dependencies": [
+              "8.1"
+            ],
+            "details": "Define API calls to retrieve logs within the selected date range. Implement data transformation functions to aggregate scores per period (day/week/month) based on the current view. Ensure efficient data fetching to minimize redundant requests. Handle loading and error states gracefully in the UI.",
+            "status": "pending",
+            "testStrategy": "Use mock and real backend data to verify correct aggregation for various periods. Test edge cases such as empty data, partial weeks/months, and API errors."
+          },
+          {
+            "id": 3,
+            "title": "Implement Trend Graphs for Aging Score Visualization",
+            "description": "Integrate a charting library to display simple trend graphs of the user's aging score over time, synchronized with the selected calendar period.",
+            "dependencies": [
+              "8.2"
+            ],
+            "details": "Choose a lightweight charting library (e.g., Chart.js, Recharts) suitable for the frontend stack. Implement line or bar graphs to visualize aging score trends for the selected period (day/week/month). Ensure the graph updates dynamically based on user navigation in the calendar/timeline. Style the graphs for clarity and consistency with the app's design.",
+            "status": "pending",
+            "testStrategy": "Test graph rendering with various data sets and periods. Validate that the graph updates correctly when the user changes the calendar view."
+          },
+          {
+            "id": 4,
+            "title": "Ensure Intuitive Navigation and Data Visualization Quality",
+            "description": "Refine the UI/UX for seamless navigation and clear data presentation, and perform quality checks to ensure the reporting features are robust and user-friendly.",
+            "dependencies": [
+              "8.3"
+            ],
+            "details": "Conduct usability reviews to identify and address navigation or visualization issues. Add tooltips, legends, or summary statistics as needed for clarity. Optimize for accessibility (e.g., keyboard navigation, screen reader support). Perform cross-browser and cross-device testing. Gather feedback from test users and iterate on the design as needed.",
+            "status": "pending",
+            "testStrategy": "Run end-to-end tests covering navigation, data accuracy, and visualization clarity. Collect user feedback and verify that all MVP requirements are met."
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Enable Manual Food Name Input Fallback",
+        "description": "Allow users to manually input food names if image recognition fails.",
+        "details": "On backend, detect recognition failure and return appropriate error. On frontend, prompt user for manual food name input. Resubmit input to backend for rule engine processing. Ensure seamless fallback experience.",
+        "testStrategy": "Simulate recognition failures and verify smooth transition to manual input and correct processing.",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          5,
+          7
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Backend: Detect Recognition Failure and Return Error",
+            "description": "Update the backend food image analysis endpoint to detect image recognition failures and return a clear, structured error response indicating the need for manual input.",
+            "dependencies": [],
+            "details": "Modify the image analysis API to identify cases where food recognition is unsuccessful (e.g., low confidence, empty results, or explicit errors from the recognition service). Return a specific error code and message (e.g., { code: 'RECOGNITION_FAILED', message: 'Unable to recognize food. Please enter manually.' }) in the API response. Ensure this error is distinguishable from other backend errors.",
+            "status": "pending",
+            "testStrategy": "Unit test with images that are not recognized and verify that the API returns the correct error structure. Integration test with the frontend to confirm error propagation."
+          },
+          {
+            "id": 2,
+            "title": "Frontend: Prompt User for Manual Food Name Input",
+            "description": "Implement frontend logic to detect recognition failure responses and prompt the user with a manual food name input UI.",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "On receiving the specific recognition failure error from the backend, display a modal or dedicated screen prompting the user to manually enter the food name. Ensure the UI is clear, accessible, and prevents duplicate submissions. Pre-fill any helpful context if available (e.g., image preview).",
+            "status": "pending",
+            "testStrategy": "Simulate backend failure responses and verify that the manual input prompt appears and is user-friendly on both iOS and Android."
+          },
+          {
+            "id": 3,
+            "title": "Frontend: Resubmit Manual Input to Backend for Rule Engine Processing",
+            "description": "Enable the frontend to submit the manually entered food name to the backend for further processing, reusing the existing rule engine flow.",
+            "dependencies": [
+              "9.2"
+            ],
+            "details": "On user submission, send the manual food name (and any relevant metadata, such as the original image if required) to the backend endpoint that processes food names. Ensure the request format matches what the rule engine expects. Handle backend responses and display results or errors to the user.",
+            "status": "pending",
+            "testStrategy": "Test manual input submission with various valid and invalid food names. Verify correct backend processing and user feedback."
+          },
+          {
+            "id": 4,
+            "title": "End-to-End: Ensure Seamless Fallback and User Experience",
+            "description": "Integrate and polish the fallback flow to ensure a seamless user experience from recognition failure through manual input and result display.",
+            "dependencies": [
+              "9.3"
+            ],
+            "details": "Conduct end-to-end testing of the entire fallback process. Refine UI transitions, loading states, and error handling to minimize user friction. Update documentation and provide QA with test cases covering both successful and failed recognition scenarios.",
+            "status": "pending",
+            "testStrategy": "Perform end-to-end tests simulating both successful and failed recognition, verifying smooth transitions, correct data flow, and user satisfaction. Gather feedback from QA or pilot users."
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Implement Social Sharing of Result Cards",
+        "description": "Allow users to export and share their result/report cards as images to social platforms (Instagram, Kakao, etc).",
+        "details": "Implement functionality to render result/report cards as shareable images. Integrate with native sharing APIs for Instagram, Kakao, etc. Ensure shared images are visually optimized and contain all key information.",
+        "testStrategy": "Test sharing flow on both platforms. Validate image quality and compatibility with target social apps.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          8
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Render Result Cards as Shareable Images",
+            "description": "Implement frontend functionality to render result/report cards as visually optimized images containing all key information.",
+            "dependencies": [],
+            "details": "Use a library such as html2canvas or react-native-view-shot to capture the result card component as an image. Ensure the image includes all relevant data and is styled for clarity and appeal on social platforms. Optimize image resolution and aspect ratio for compatibility with Instagram and Kakao sharing requirements.",
+            "status": "pending",
+            "testStrategy": "Verify that generated images accurately reflect the result card content and maintain visual quality across different devices and screen sizes."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Social Platform Sharing APIs",
+            "description": "Integrate with native sharing APIs for Instagram, Kakao, and other target platforms to enable direct sharing of result card images.",
+            "dependencies": [
+              "10.1"
+            ],
+            "details": "Register the app with each target social platform to obtain necessary API keys and permissions. Use platform-specific SDKs or React Native libraries (e.g., react-native-share, Kakao SDK) to implement sharing functionality. Ensure the sharing flow supports both direct image sharing and fallback to system share sheets where applicable.",
+            "status": "pending",
+            "testStrategy": "Test sharing on both iOS and Android devices for each platform. Confirm that images are correctly shared and displayed on Instagram, Kakao, etc."
+          },
+          {
+            "id": 3,
+            "title": "Backend Support for Image Export (Optional/MVP-Scoped)",
+            "description": "Provide backend support for image export if frontend-only rendering is insufficient, ensuring scalability and consistent image generation.",
+            "dependencies": [
+              "10.1"
+            ],
+            "details": "If needed, implement an API endpoint that accepts result card data and returns a generated image (using a headless browser or image rendering service). Ensure secure handling of user data and optimize for low latency. Only implement if frontend rendering does not meet quality or compatibility requirements.",
+            "status": "pending",
+            "testStrategy": "Send sample result card data to the endpoint and verify that the returned image matches frontend output and meets quality standards."
+          },
+          {
+            "id": 4,
+            "title": "Quality Assurance and Cross-Platform Testing",
+            "description": "Conduct comprehensive testing of the social sharing flow, image quality, and platform compatibility. Address edge cases and ensure a seamless user experience.",
+            "dependencies": [
+              "10.2",
+              "10.3"
+            ],
+            "details": "Test the entire sharing process on multiple devices and OS versions. Validate image appearance on each social platform, check for data completeness, and handle errors gracefully (e.g., failed API calls, unsupported platforms). Collect user feedback and iterate as needed.",
+            "status": "pending",
+            "testStrategy": "Perform manual and automated tests covering all sharing scenarios. Use device farms or emulators to ensure broad compatibility. Document and resolve any issues found."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Optimize Image Upload Performance and Privacy",
+        "description": "Ensure image uploads are fast (3-5s) and comply with privacy requirements.",
+        "details": "Implement client-side image compression and resizing before upload. On backend, avoid storing images by default; if storage is enabled, require explicit user consent. Document privacy policy and obtain consent where needed.",
+        "testStrategy": "Measure upload times with various image sizes. Verify privacy prompts and backend compliance with storage policy.",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Client-Side Image Compression and Resizing",
+            "description": "Integrate image compression and resizing logic into the frontend to ensure images are reduced in size and dimensions before upload, targeting upload times within 3-5 seconds.",
+            "dependencies": [],
+            "details": "Use libraries such as Sharp, Compressor.js, or native platform APIs to compress and resize images immediately after selection. Choose appropriate formats (JPEG, WebP) and compression levels to balance quality and speed. Ensure images are resized to match display requirements and avoid uploading unnecessarily large files. Provide user feedback (e.g., progress bar) during processing.",
+            "status": "pending",
+            "testStrategy": "Test with various image sizes and formats on both iOS and Android. Measure upload times and verify that compressed images meet quality and speed targets."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Privacy-Compliant Backend Upload Endpoint",
+            "description": "Modify or implement the backend image upload endpoint to avoid storing images by default and require explicit user consent before enabling storage.",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Configure the backend to process images in-memory for analysis and discard them unless storage is explicitly enabled. If storage is requested, prompt for and record user consent before saving any image. Ensure all API endpoints validate consent status and enforce privacy requirements. Document logic for auditability.",
+            "status": "pending",
+            "testStrategy": "Send test uploads with and without consent. Verify images are not stored unless consent is given and audit logs reflect correct consent status."
+          },
+          {
+            "id": 3,
+            "title": "Implement Privacy Policy Documentation and Consent UI",
+            "description": "Create clear privacy policy documentation and integrate a user interface for obtaining and recording explicit consent for image storage.",
+            "dependencies": [
+              "11.2"
+            ],
+            "details": "Draft concise privacy policy language focused on image handling and storage. Display the policy in the app before any image storage occurs. Implement UI elements (modal, checkbox) to capture explicit user consent, and persist consent status securely. Ensure consent is revocable and reflected in backend logic.",
+            "status": "pending",
+            "testStrategy": "Verify that users cannot enable image storage without first consenting. Test consent revocation and confirm backend respects updated consent status."
+          },
+          {
+            "id": 4,
+            "title": "Monitor and Optimize End-to-End Image Upload Performance",
+            "description": "Instrument the frontend and backend to monitor image upload times and optimize the pipeline to consistently achieve 3-5 second uploads under typical conditions.",
+            "dependencies": [
+              "11.1",
+              "11.2",
+              "11.3"
+            ],
+            "details": "Add logging and analytics to track upload durations, image sizes, and network conditions. Use performance data to adjust compression settings, chunking strategies, and concurrency. Consider progressive loading and adaptive serving for further speed improvements. Document findings and update implementation as needed.",
+            "status": "pending",
+            "testStrategy": "Simulate uploads under various network conditions and image sizes. Review logs and analytics to confirm upload times meet targets. Iterate on compression and upload logic as needed."
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "End-to-End Integration and User Flow Testing",
+        "description": "Test the complete user journey from image upload to result, report, and sharing, ensuring usability and performance.",
+        "details": "Conduct manual and automated tests covering all core flows: image upload, analysis, result display, report viewing, manual input fallback, and social sharing. Collect feedback on UX and iterate as needed.",
+        "testStrategy": "Perform end-to-end tests on both platforms. Validate all acceptance criteria from PRD, including performance and usability.",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement End-to-End Test Scenarios",
+            "description": "Define and implement comprehensive test cases covering the full user journey, including image upload, analysis, result display, report viewing, manual input fallback, and social sharing.",
+            "dependencies": [],
+            "details": "Identify all critical user flows based on the PRD and UX requirements. Write detailed test cases for each flow, specifying input data, expected outputs, and edge cases. Implement these scenarios using a combination of manual test scripts and automated end-to-end test frameworks (e.g., Detox for React Native, Cypress for web, or Appium for cross-platform). Ensure coverage includes both successful and failure paths, such as image recognition errors and manual input fallback.",
+            "status": "pending",
+            "testStrategy": "Review test case completeness with stakeholders. Validate that all acceptance criteria are covered. Run initial dry runs to ensure test scripts execute as intended."
+          },
+          {
+            "id": 2,
+            "title": "Set Up and Integrate Test Infrastructure",
+            "description": "Configure the necessary test environments, automation frameworks, and backend stubs/mocks to enable reliable and repeatable end-to-end testing across platforms.",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Provision test environments for both iOS and Android (simulators/emulators, device farms if needed). Set up CI/CD integration for automated test execution. Configure backend stubs or mocks for external dependencies (e.g., Google Cloud Vision API) to ensure tests are deterministic and not reliant on third-party uptime. Ensure test data is isolated and resettable between runs.",
+            "status": "pending",
+            "testStrategy": "Verify that automated tests run reliably in CI and locally. Confirm that test environments are isolated and reproducible. Validate backend mocks/stubs return expected responses for all test scenarios."
+          },
+          {
+            "id": 3,
+            "title": "Execute End-to-End Tests and Collect Usability/Performance Data",
+            "description": "Run the defined end-to-end tests, monitor for failures, and collect data on usability and performance metrics throughout the user journey.",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Execute all manual and automated test cases on both platforms. Log and triage any failures or regressions. Use profiling tools and analytics to measure performance (e.g., image upload latency, analysis time, report rendering speed). Collect qualitative feedback from testers on UX pain points, accessibility, and overall satisfaction.",
+            "status": "pending",
+            "testStrategy": "Track pass/fail rates for all test cases. Use performance benchmarks to identify bottlenecks. Summarize usability findings in a structured report."
+          },
+          {
+            "id": 4,
+            "title": "Iterate and Validate Fixes Based on Test Feedback",
+            "description": "Work with development teams to address identified issues, retest fixes, and validate that all user flows meet acceptance criteria for usability and performance.",
+            "dependencies": [
+              "12.3"
+            ],
+            "details": "Prioritize issues found during testing (bugs, UX problems, performance bottlenecks). Collaborate with frontend, backend, and infrastructure teams to implement fixes. Retest affected flows to confirm resolution. Repeat as needed until all critical issues are addressed and the user journey is smooth and performant.",
+            "status": "pending",
+            "testStrategy": "Maintain a defect/fix log. Ensure all retested flows pass without regression. Obtain final sign-off from stakeholders on usability and performance."
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-09-19T13:01:33.140Z",
+      "updated": "2025-09-19T13:01:33.140Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
