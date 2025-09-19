@@ -9,7 +9,7 @@
         "testStrategy": "Verify DB connection and schema creation by running integration tests that persist and retrieve FoodLog entities.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "deferred",
         "subtasks": [
           {
             "id": 1,
@@ -169,7 +169,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "deferred",
         "subtasks": [
           {
             "id": 1,
@@ -225,7 +225,7 @@
         "dependencies": [
           4
         ],
-        "status": "pending",
+        "status": "deferred",
         "subtasks": [
           {
             "id": 1,
@@ -281,7 +281,7 @@
         "dependencies": [
           5
         ],
-        "status": "pending",
+        "status": "deferred",
         "subtasks": [
           {
             "id": 1,
@@ -335,8 +335,7 @@
         "testStrategy": "UI test with various result payloads. Validate layout, responsiveness, and error handling.",
         "priority": "medium",
         "dependencies": [
-          3,
-          5
+          3
         ],
         "status": "pending",
         "subtasks": [
@@ -391,9 +390,7 @@
         "details": "Fetch logs from backend and aggregate by day, week, month. Display total aging score per period. Implement calendar/timeline UI and simple trend graphs using a charting library. Ensure intuitive navigation and clear data visualization.",
         "testStrategy": "Test with mock and real data for various periods. Validate correctness of aggregation and graph rendering.",
         "priority": "medium",
-        "dependencies": [
-          6
-        ],
+        "dependencies": [],
         "status": "pending",
         "subtasks": [
           {
@@ -448,7 +445,6 @@
         "testStrategy": "Simulate recognition failures and verify smooth transition to manual input and correct processing.",
         "priority": "medium",
         "dependencies": [
-          4,
           5,
           7
         ],
@@ -564,8 +560,7 @@
         "testStrategy": "Measure upload times with various image sizes. Verify privacy prompts and backend compliance with storage policy.",
         "priority": "medium",
         "dependencies": [
-          3,
-          4
+          3
         ],
         "status": "pending",
         "subtasks": [
@@ -680,11 +675,70 @@
             "testStrategy": "Maintain a defect/fix log. Ensure all retested flows pass without regression. Obtain final sign-off from stakeholders on usability and performance."
           }
         ]
+      },
+      {
+        "id": 13,
+        "title": "Create API Client Abstraction with Mock/Real Adapters and DTOs (Frontend Only)",
+        "description": "Develop a frontend-only API client abstraction with switchable Mock and Real adapters, controlled by an environment flag, and define TypeScript DTOs for analysis results and FoodLog.",
+        "details": "1. Design an API client abstraction layer in TypeScript, exposing methods for food image analysis and FoodLog operations. Use a class or interface to define the contract, and implement two adapters: MockAdapter and RealAdapter.\n\n2. Implement environment/config flag (useMockApi) to select between adapters at runtime. Ensure the flag can be toggled via a developer-only screen (see related config task).\n\n3. Define TypeScript DTOs for analysis result (e.g., { labels: string[], agingScore: number, message: string }) and FoodLog (e.g., { id, foodName, agingScore, message, imageUrl, createdAt }).\n\n4. MockAdapter should return deterministic responses for image analysis, including top-N labels and witty messages, and simulate failure cases. Wire this to the image selection flow so that analysis requests use the mock logic when enabled.\n\n5. RealAdapter should wrap actual network requests using a shared API client (e.g., axios or fetch), with baseURL and headers configured from the env/config module. Ensure DTOs are used for serialization/deserialization.\n\n6. Structure the API client for easy extension and maintainability, following clean architecture principles (centralized config, shared DTOs, clear separation of adapters).[1][2][3]\n\n7. Document the API client usage and adapter switching for developers.",
+        "testStrategy": "- Unit test both MockAdapter and RealAdapter for all API methods, verifying correct DTO shapes and error handling.\n- Test environment flag toggling to ensure the correct adapter is used at runtime.\n- Simulate image selection and verify deterministic mock responses, including top-N labels and witty messages.\n- Validate integration with image selection flow and ensure DTOs are correctly passed to downstream components.\n- Review code for clean separation of adapters and centralized configuration.",
+        "status": "pending",
+        "dependencies": [
+          2,
+          7,
+          9,
+          11
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Implement Frontend Mock Adapter for Deterministic Analysis Responses and Error Simulation",
+        "description": "Develop a frontend-only mock adapter for the food image analysis flow, providing deterministic responses, error simulation, and PRD-compliant witty messages and top-N labels. Integrate toggles for switching between success and failure cases, and wire the adapter into the image selection flow.",
+        "details": "1. Implement a MockAdapter class conforming to the API client abstraction interface (see Task 13), returning deterministic mock responses for food image analysis requests. Responses must include top-N food labels, aging scores, and witty messages as specified in the PRD and by the rule engine (see Task 5 for message logic).\n\n2. Provide a set of predefined mock scenarios: successful analysis (with various food types and labels), API failure (e.g., network error, invalid image), and edge cases (e.g., empty label list). Each scenario should be selectable via a developer-only toggle UI.\n\n3. Integrate the MockAdapter into the image selection flow (Task 3), ensuring that when the mock mode is enabled, all analysis requests use the mock adapter and bypass the real API.\n\n4. Implement toggles in a developer/debug screen to switch between mock/real adapters and to select specific mock scenarios (success, error, edge cases). Ensure toggles are only accessible in development builds.\n\n5. Ensure mock responses are deterministic: given the same input or scenario selection, the same output is always returned. Include logic to simulate latency and error paths for robust frontend testing.\n\n6. For each mock response, generate top-N labels and witty messages according to PRD rules. If possible, reuse or stub the rule engine logic for message generation to ensure consistency with production behavior.\n\n7. Document all available mock scenarios and toggles for developer reference.",
+        "testStrategy": "1. Verify that toggling between mock and real adapters correctly switches the analysis flow, and that all image analysis requests use the selected adapter.\n\n2. For each mock scenario (success, error, edge), confirm that the frontend receives the expected deterministic response, including top-N labels, aging score, and witty message.\n\n3. Test error simulation paths: ensure that error states (e.g., network failure, invalid image) are handled gracefully in the UI, and that toggling between scenarios updates the behavior in real time.\n\n4. Validate that witty messages and labels in mock responses match PRD and rule engine requirements.\n\n5. Confirm that toggles and scenario selection are only accessible in development/debug mode and do not appear in production builds.\n\n6. Perform regression testing on the image selection and analysis flow to ensure integration with the mock adapter does not break existing functionality.",
+        "status": "pending",
+        "dependencies": [
+          3,
+          5,
+          13
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Implement AsyncStorage-based FoodLog Repository and Integrate with Report/Timeline UI",
+        "description": "Develop a frontend-only FoodLog repository using AsyncStorage to persist, list, and aggregate food logs, and integrate it with the report/timeline UI for offline support and mock data usage.",
+        "details": "1. Create a FoodLogRepository class or module that uses AsyncStorage to save, retrieve, and aggregate food log entries. Implement methods for saving logs, listing logs by date, and calculating aggregates (daily, weekly, monthly aging scores).\n2. Use AsyncStorage methods such as setItem, getItem, getAllKeys, and multiGet to efficiently store and retrieve logs. Store logs as serialized JSON objects, using date-based keys or a single array of log objects for easier aggregation.\n3. Ensure all repository operations work offline and gracefully handle storage errors. Provide mock data initialization for development and testing, allowing toggling between mock and real data sources.\n4. Integrate the repository with the report/timeline UI (Task 8), replacing backend fetches with local repository calls. Update the UI to reflect offline data and aggregates, ensuring consistency with the expected report formats.\n5. Document the repository API and usage patterns for maintainability. Consider edge cases such as data migration, clearing logs, and handling corrupted storage.\n6. Do not store sensitive information in AsyncStorage, as it is not encrypted by default. For mock data, provide a utility to reset or seed logs for demo purposes.",
+        "testStrategy": "1. Unit test all repository methods: saving, retrieving, listing by date, and aggregating logs. Verify correct storage and retrieval of mock and real data.\n2. Simulate offline scenarios by disabling network and confirming full functionality of log operations and report/timeline UI integration.\n3. Validate that the report/timeline UI displays accurate aggregates and trends based on locally stored logs.\n4. Test mock data initialization and toggling to ensure deterministic results for development and QA.\n5. Manually clear and corrupt AsyncStorage to verify error handling and data recovery mechanisms.",
+        "status": "pending",
+        "dependencies": [
+          8,
+          "13"
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Add Frontend Env/Config Module and Developer Toggles Screen",
+        "description": "Implement a frontend-only environment/configuration module to manage baseURL, useMockApi, logging level, and provide a developer-only screen for toggling mock/real API at runtime. Document usage for developers.",
+        "details": "1. Create a TypeScript module (e.g., EnvConfig) that centralizes environment/configuration variables: baseURL, useMockApi, logging level, and any future flags. Use runtime configuration loading (e.g., fetch config.json from assets or initialize from process.env) to allow dynamic updates without rebuilding.\n\n2. Integrate with the API client abstraction (see Task 13) so that useMockApi and baseURL are consumed by adapters. Ensure config changes propagate to all consumers at runtime.\n\n3. Implement a developer-only screen (visible only in dev mode) that displays current config values and allows toggling useMockApi and logging level. Use React context or a global state manager to update config and trigger re-rendering of dependent modules.\n\n4. Ensure toggling useMockApi switches between mock and real adapters instantly (see Task 13 and 14). Provide clear UI feedback and restrict access to this screen in production builds.\n\n5. Document the EnvConfig module and developer toggles screen in the project README or a dedicated developer guide. Include usage examples, integration instructions, and security considerations (e.g., never expose secrets in config files).\n\n6. Design for extensibility: allow easy addition of new config flags and toggles in the future.",
+        "testStrategy": "- Unit test EnvConfig module for correct initialization, runtime updates, and propagation to consumers.\n- Verify that toggling useMockApi via the developer screen switches API adapters instantly and all requests use the selected adapter (mock/real).\n- Test logging level changes and ensure logs are filtered accordingly.\n- Confirm that the developer toggles screen is inaccessible in production builds.\n- Review documentation for completeness and clarity; ensure developers can follow setup and usage instructions.",
+        "status": "pending",
+        "dependencies": [
+          13,
+          14
+        ],
+        "priority": "medium",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-09-19T13:01:33.140Z",
-      "updated": "2025-09-19T13:01:33.140Z",
+      "updated": "2025-09-19T13:43:08.305Z",
       "description": "Tasks for master context"
     }
   }
