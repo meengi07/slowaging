@@ -1,13 +1,13 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {Pressable, Text, StyleSheet, StyleProp, ViewStyle, TextStyle} from 'react-native';
 
-interface CustomButtonProps {
+type CustomButtonProps = {
   title: string;
   onPress: () => void;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
-}
+};
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
@@ -17,14 +17,24 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   disabled = false,
 }) => {
   return (
-    <TouchableOpacity
-      style={[styles.button, style, disabled && styles.disabled]}
+    <Pressable
+      style={({pressed}) => [
+        styles.button,
+        style,
+        disabled && styles.disabled,
+        pressed && !disabled && styles.pressed,
+      ]}
       onPress={onPress}
       disabled={disabled}>
-      <Text style={[styles.text, textStyle, disabled && styles.disabledText]}>
+      <Text
+        style={[
+          styles.text,
+          textStyle,
+          disabled && styles.disabledText,
+        ]}>
         {title}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -36,6 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: 120,
   },
   text: {
     color: '#ffffff',
@@ -47,6 +58,9 @@ const styles = StyleSheet.create({
   },
   disabledText: {
     color: '#666666',
+  },
+  pressed: {
+    opacity: 0.9,
   },
 });
 
