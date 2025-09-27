@@ -57,7 +57,7 @@
         "testStrategy": "Run the app on both iOS and Android simulators to confirm successful initialization and navigation between placeholder screens.",
         "priority": "high",
         "dependencies": [],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -113,15 +113,15 @@
         "dependencies": [
           2
         ],
-        "status": "pending",
+        "status": "in-progress",
         "subtasks": [
           {
             "id": 1,
             "title": "Integrate Image Picker and Camera Modules",
             "description": "Set up and configure modules to allow users to select images from their device gallery or capture new photos using the device camera.",
             "dependencies": [],
-            "details": "Install and configure a cross-platform image picker library (e.g., react-native-image-picker or expo-image-picker). Ensure permissions for camera and gallery access are handled for both iOS and Android. Provide functions to launch the camera or open the gallery, returning the selected or captured image data.",
-            "status": "pending",
+            "details": "Install and configure a cross-platform image picker library (e.g., react-native-image-picker or expo-image-picker). Ensure permissions for camera and gallery access are handled for both iOS and Android. Provide functions to launch the camera or open the gallery, returning the selected or captured image data.\n<info added on 2025-09-27T15:01:59.807Z>\nExplicitly add camera and photo access permissions to AndroidManifest.xml and iOS Info.plist, including READ_MEDIA_IMAGES for Android 33+ and READ_EXTERNAL_STORAGE with maxSdkVersion=32 for compatibility with lower versions. Create a dedicated helper module at src/services/imagePicker.ts for react-native-image-picker, integrating launchCamera and launchImageLibrary options, defining a unified return type for success, cancel, and error states, and prompting users with an Alert to open settings if permissions are denied. Export this helper from services/index for future UI integration, and prepare emulator tests for both image selection and capture. Plan to update iOS permission prompt messages in Info.plist and note that while Android permissions are generally granted by default, reference runtime permission handling for future needs.\n</info added on 2025-09-27T15:01:59.807Z>\n<info added on 2025-09-27T15:05:38.129Z>\nImplementation complete:\n- Added CAMERA, READ_MEDIA_IMAGES (Android 13+), and READ_EXTERNAL_STORAGE with maxSdkVersion=32 permissions to AndroidManifest.xml, set camera hardware as optional.\n- Added NSCameraUsageDescription and NSPhotoLibraryUsageDescription to Info.plist for camera/photo library access reasons.\n- Created react-native-image-picker wrapper at src/services/imagePicker.ts: defined PickerSource and ImagePickerResult types, unified launchCamera/launchImageLibrary options, handled success/cancel/error cases, and guided users to settings via Alert on permission denial.\n- Re-exported imagePicker helper from services/index.ts.\n- Passed npm run lint, npm test, and npx tsc --noEmit.\n\nOnly image selection and capture testing on real devices/emulators remains.\n</info added on 2025-09-27T15:05:38.129Z>",
+            "status": "done",
             "testStrategy": "Test image selection and capture on both iOS and Android simulators/devices. Verify permission prompts and returned image data."
           },
           {
@@ -738,7 +738,7 @@
     ],
     "metadata": {
       "created": "2025-09-19T13:01:33.140Z",
-      "updated": "2025-09-27T14:54:13.958Z",
+      "updated": "2025-09-27T15:05:46.616Z",
       "description": "Tasks for master context"
     }
   }
